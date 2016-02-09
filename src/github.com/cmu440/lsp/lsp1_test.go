@@ -201,8 +201,8 @@ func makeParams(epochLimit, epochMillis, windowSize int) *Params {
 func TestBasic1(t *testing.T) {
 	newTestSystem(t, 1, makeParams(5, 2000, 1)).
 		setDescription("TestBasic1: Short client/server interaction").
-		setNumMsgs(3).
-		runTest(2000)
+		setNumMsgs(500).
+		runTest(50000)
 }
 
 func TestBasic2(t *testing.T) {

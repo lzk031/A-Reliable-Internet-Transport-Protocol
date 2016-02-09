@@ -13,6 +13,10 @@ import (
 	"github.com/cmu440/lspnet"
 )
 
+const (
+	SYM = "!!!!!!!!!!!!"
+)
+
 var (
 	port        = flag.Int("port", 9999, "server port number")
 	host        = flag.String("host", "localhost", "server host address")
@@ -55,13 +59,17 @@ func main() {
 
 func runClient(cli lsp.Client) {
 	defer fmt.Println("Exiting...")
-	for {
+	// fmt.Println("start to run client")
+	for i := 0; i < 2000; i++ {
+		fmt.Println(i)
 		// Get next token from input.
 		fmt.Printf("Client: ")
 		var s string
-		if _, err := fmt.Scan(&s); err != nil {
-			return
-		}
+		// if _, err := fmt.Scan(&s); err != nil {
+		// 	return
+		// }
+		s = "hello"
+		// fmt.Println(SYM, "Send message to server")
 		// Send message to server.
 		if err := cli.Write([]byte(s)); err != nil {
 			fmt.Printf("Client %d failed to write to server: %s\n", cli.ConnID(), err)
@@ -69,6 +77,7 @@ func runClient(cli lsp.Client) {
 		}
 		log.Printf("Client %d wrote '%s' to server\n", cli.ConnID(), s)
 		// Read message from server.
+		// fmt.Println(SYM, "read from server")
 		payload, err := cli.Read()
 		if err != nil {
 			fmt.Printf("Client %d failed to read from server: %s\n", cli.ConnID(), err)
